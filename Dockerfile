@@ -5,7 +5,7 @@ FROM base AS builder
 RUN apk add --no-cache gcompat
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml tsconfig.json environment.d.ts ./
+COPY package.json pnpm-lock.yaml tsconfig.json ./
 COPY src ./src
 
 RUN corepack enable && \
