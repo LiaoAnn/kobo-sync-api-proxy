@@ -35,6 +35,24 @@ Once started, the API is exposed on port `5678` by default. You can test it by c
 curl http://localhost:5678/ping
 ```
 
+## How to Use
+
+### Configuring Your Kobo e-Reader
+
+1. Connect your Kobo e-reader to your computer via USB.
+2. Open the `.kobo/Kobo` directory on your e-reader using a text editor (such as VSCode or Cursor). *Note: The `.kobo` folder is usually hidden, so ensure your OS is set to display hidden files.*
+3. You will find a configuration file named `Kobo eReader.conf`. Since we are going to modify it, it is highly recommended that you back it up first (e.g., copy it as `Kobo eReader.conf.bak`).
+4. Inside `Kobo eReader.conf`, locate **all URLs** starting with `https://storeapi.kobo.com` and replace them with your deployed proxy URL. For example, change `api_endpoint=https://storeapi.kobo.com/` to something like `api_endpoint=http://kobo.yourdomain.com/`.
+5. Safely eject the device from your computer, and then tap the "Sync" button on your Kobo e-reader. All your sync traffic will now route through your proxy.
+
+### Reverting the Changes
+
+If you no longer wish to use the proxy and want to restore the original settings:
+
+1. Connect your Kobo e-reader to your computer and open the `.kobo/Kobo` directory again.
+2. Replace the contents of `Kobo eReader.conf` with your backup (`Kobo eReader.conf.bak`).
+3. Safely eject the device.
+
 ## 💻 Development Guide
 
 This project provides a development environment configuration based on Dev Containers and Docker Compose.
