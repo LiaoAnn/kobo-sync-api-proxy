@@ -1,0 +1,86 @@
+{
+	"id": "c2a1e5c0-e42d-462a-869a-db46b884e393",
+	"prevId": "00000000-0000-0000-0000-000000000000",
+	"version": "7",
+	"dialect": "postgresql",
+	"tables": {
+		"public.requests": {
+			"name": "requests",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "text",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"method": {
+					"name": "method",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"path": {
+					"name": "path",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"request_headers": {
+					"name": "request_headers",
+					"type": "jsonb",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"request_body": {
+					"name": "request_body",
+					"type": "jsonb",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"response_status": {
+					"name": "response_status",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"response_headers": {
+					"name": "response_headers",
+					"type": "jsonb",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"response_body": {
+					"name": "response_body",
+					"type": "jsonb",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		}
+	},
+	"enums": {},
+	"schemas": {},
+	"sequences": {},
+	"roles": {},
+	"policies": {},
+	"views": {},
+	"_meta": {
+		"columns": {},
+		"schemas": {},
+		"tables": {}
+	}
+}
