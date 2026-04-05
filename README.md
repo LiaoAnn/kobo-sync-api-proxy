@@ -35,6 +35,14 @@ Once started, the API is exposed on port `5678` by default. You can test it by c
 curl http://localhost:5678/ping
 ```
 
+4. **Access Drizzle Gateway (Optional)**
+Drizzle Gateway is included in the deployment to visually manage your database:
+   - Open your browser and navigate to `http://localhost:4983` (or your server's IP/domain with port 4983)
+   - Enter the master password (set via `DRIZZLE_MASTERPASS` environment variable)
+   - Select **PostgreSQL** as the database type
+   - Enter your `DATABASE_URL` value from the `.env` file
+   - Click connect to access the database management interface
+
 ## How to Use
 
 ### Configuring Your Kobo e-Reader
@@ -64,6 +72,10 @@ This project provides a development environment configuration based on Dev Conta
 ### Development Notes
 1. This project is developed using devcontainer, so you can easily start and enter the project environment in VS Code using `Dev Containers: Reopen in Container` or `Rebuild and Reopen in Container`.
 2. **`pnpm_store` Volume**: In `docker-compose.yml` or the devcontainer settings, I have mounted the `pnpm_store` to a corresponding path on the host machine to speed up dependency installation. If your computer doesn't have the corresponding folder or setup, please **remove this volume mount directly** to avoid mounting errors when starting the environment.
+
+### Database Management with Drizzle Gateway
+
+This project includes **Drizzle Gateway** for visual database administration. During development, access it at `http://localhost:4983`. For detailed setup and usage instructions, see the **Deployment** section above.
 
 ---
 **Note**:
