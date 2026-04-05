@@ -8,7 +8,7 @@ services:
       NODE_ENV: production
       AUTO_MIGRATE_ON_START: ${AUTO_MIGRATE_ON_START:-true}
       PORT: ${PORT:-5678}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-user}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-kobo}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-user}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-kobo}}
     ports:
       - "${PORT:-5678}:${PORT:-5678}"
     depends_on:
