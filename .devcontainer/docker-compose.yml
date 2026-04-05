@@ -19,6 +19,7 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: kobo
+    # don't forward the port to the host machine, as it's only needed for internal communication between containers
     # ports:
     #   - "5432:5432"
     volumes:
@@ -29,6 +30,22 @@ services:
       timeout: 5s
       retries: 5
 
+  drizzle-gateway:
+    image: ghcr.io/drizzle-team/gateway:latest
+    restart: unless-stopped
+    ports:
+      - "4983:4983"
+    environment:
+      PORT: 4983
+      STORE_PATH: ./app
+      MASTERPASS: your_master_password
+    volumes:
+      - drizzle-gateway:/app
+    depends_on:
+      db:
+        condition: service_healthy
+
 volumes:
   pnpm_store:
   postgres_data:
+  drizzle-gateway:

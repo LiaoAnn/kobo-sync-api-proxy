@@ -30,5 +30,21 @@ services:
       timeout: 5s
       retries: 5
 
+  drizzle-gateway:
+    image: ghcr.io/drizzle-team/gateway:latest
+    restart: unless-stopped
+    ports:
+      - "4983:4983"
+    environment:
+      PORT: 4983
+      STORE_PATH: ./app
+      MASTERPASS: ${DRIZZLE_MASTERPASS:-your_master_password}
+    volumes:
+      - drizzle-gateway:/app
+    depends_on:
+      db:
+        condition: service_healthy
+
 volumes:
   postgres_data:
+  drizzle-gateway:
