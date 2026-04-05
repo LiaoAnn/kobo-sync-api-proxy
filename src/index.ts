@@ -137,7 +137,11 @@ app.get("/ping", (c) => c.text("pong"));
 // proxy all request to https://storeapi.kobo.com/{path}?{search}
 app.all("*", async (c) => {
 	const requestUrl = new URL(c.req.url);
-	const path = `${requestUrl.pathname}${requestUrl.search}`;
+	let pathname = requestUrl.pathname;
+	if (pathname.startsWith("//")) {
+		pathname = pathname.substring(1);
+	}
+	const path = `${pathname}${requestUrl.search}`;
 	const url = `https://storeapi.kobo.com${path}`;
 	const rawRequest = c.req.raw;
 
