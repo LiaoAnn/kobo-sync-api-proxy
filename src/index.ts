@@ -148,7 +148,20 @@ app.all("*", async (c) => {
 	console.info(`Proxying request: ${rawRequest.method} ${path}`);
 
 	const requestBodyPromise = serializeBody(rawRequest.clone());
-	const res = await fetch(url, rawRequest);
+
+	// Create a new request without the Host header
+	const headers = new Headers(rawRequest.headers);
+	headers.delete("host");
+	const proxyRequest = new Request(url, {
+		method: rawRequest.method,
+		headers,
+		body:
+			rawRequest.method !== "GET" && rawRequest.method !== "HEAD"
+				? rawRequest.body
+				: null,
+	});
+
+	const res = await fetch(proxyRequest);
 	const responseBodyPromise = serializeBody(res.clone());
 
 	const persistRequestLog = async (): Promise<void> => {
@@ -163,7 +176,7 @@ app.all("*", async (c) => {
 				.values({
 					method: rawRequest.method,
 					path,
-					requestHeaders: Object.fromEntries(rawRequest.headers.entries()),
+					requestHeaders: Object.fromEntries(headers),
 					requestBody,
 					responseStatus: res.status,
 					responseHeaders: Object.fromEntries(res.headers.entries()),
