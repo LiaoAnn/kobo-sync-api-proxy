@@ -1,0 +1,34 @@
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/typescript-node:24-trixie
+    command: sleep infinity
+    user: node
+    ports:
+      - "5678:5678"
+    volumes:
+      - ../..:/workspaces:cached
+      - pnpm_store:/home/node/.pnpm-store
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # conn string: postgresql://user:postgres@db:5432/kobo
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: kobo
+    # ports:
+    #   - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pnpm_store:
+  postgres_data:
